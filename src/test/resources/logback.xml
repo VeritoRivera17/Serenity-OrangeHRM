@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+
+    <!-- ===========================================
+         📁 RUTA Y NOMBRE DE LOS LOGS
+         =========================================== -->
+    <property name="LOG_DIR" value="target/logs"/>
+    <property name="LOG_FILE" value="${LOG_DIR}/serenity.log"/>
+
+    <!-- ===========================================
+         🧩 FORMATO DE SALIDA
+         =========================================== -->
+    <encoder name="STDOUT_ENCODER" class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+
+    <encoder name="FILE_ENCODER" class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+    </encoder>
+
+    <!-- ===========================================
+         🖥️ CONSOLA (para ver logs en tiempo real)
+         =========================================== -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder ref="STDOUT_ENCODER"/>
+    </appender>
+
+    <!-- ===========================================
+         📜 ARCHIVO DE LOG CON ROTACIÓN DIARIA
+         =========================================== -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <encoder ref="FILE_ENCODER"/>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 🗓️ Genera un nuevo archivo por día -->
+            <fileNamePattern>${LOG_DIR}/serenity-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- ♻️ Mantén los últimos 7 días -->
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- ===========================================
+         🧠 NIVELES DE LOG PERSONALIZADOS
+         =========================================== -->
+
+    <!-- Serenity BDD -->
+    <logger name="net.serenitybdd" level="INFO"/>
+
+    <!-- Selenium WebDriver -->
+    <logger name="org.openqa.selenium" level="WARN"/>
+
+    <!-- JUnit -->
+    <logger name="org.junit" level="WARN"/>
+
+    <!-- Apache HTTP -->
+    <logger name="org.apache.http" level="ERROR"/>
+
+    <!-- Base de datos o librerías adicionales -->
+    <logger name="org.hibernate" level="ERROR"/>
+
+    <!-- Tu propio código -->
+    <logger name="com.ejemplo" level="DEBUG"/>
+
+    <!-- ===========================================
+         🚀 ROOT LOGGER
+         =========================================== -->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+
+</configuration>
