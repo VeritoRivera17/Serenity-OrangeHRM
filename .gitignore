@@ -37,3 +37,34 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Maven
+target/
+*.log
+*.tmp
+
+# IDEs
+.idea/
+
+# Eclipse
+.settings/
+
+# Intellij
+out/
+
+# Serenity reports
+target/site/serenity/
+*.db
+
+# System files
+Thumbs.db
+
+# Ejecutables / binarios
+*.exe
+*.bat
+*.sh
+
+# Otros archivos de configuración sensibles
+*.jks
+*.keystore
+*.env
